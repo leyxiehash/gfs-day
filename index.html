@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GF'S DAY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-emoji" id="modalEmoji">🌸</div>
+        <p id="modalText">You're as beautiful as every flower combined.</p>
+    </div>
+</div>
+
+
+<body>
+    <h1>HAPPY GF'S DAY!</h1>
+    <p>click the flower to reveal a message</p>
+
+    <div class="bouquet">
+        <a class="flower" data-emoji="🌹" data-message="You're as lovely as a rose in bloom.">
+            <div class="emoji">🌹</div>
+        </a>
+        <a class="flower" data-emoji="🌷" data-message="You bring joy like a fresh tulip.">
+            <div class="emoji">🌷</div>
+        </a>
+        <a class="flower" data-emoji="🌼" data-message="You’re as sweet and fresh as a daisy in spring.">
+            <div class="emoji">🌼</div>
+        </a>
+        <a class="flower" data-emoji="🌸" data-message="Your laugh is soft as a lily.">
+            <div class="emoji">🌸</div>
+        </a>
+        <a class="flower" data-emoji="🌺" data-message="You're my cherry blossom dream.">
+            <div class="emoji">🌺</div>
+        </a>
+        <a class="flower" data-emoji="🌻" data-message="Your smile’s bright like a sunflower.">
+            <div class="emoji">🌻</div>
+        </a>
+    </div>
+
+
+    <button class="music-btn" onclick="toggleMusic()">Toggle Music 🎵</button>
+
+    <span class="floating" style="left: 10%; bottom: 0; animation-delay: 0s;">💖</span>
+    <span class="floating" style="left: 30%; bottom: 10px; animation-delay: 1s;">✨</span>
+    <span class="floating" style="left: 50%; bottom: 5px; animation-delay: 2s;">💗</span>
+    <span class="floating" style="left: 70%; bottom: 15px; animation-delay: 0.5s;">💘</span>
+    <span class="floating" style="left: 90%; bottom: 0; animation-delay: 1.5s;">❤️</span>
+
+    <audio id="bgMusic" loop>
+        <source src="august.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const modalEmoji = document.getElementById('modalEmoji');
+        const modalText = document.getElementById('modalText');
+        const closeBtn = document.querySelector('.close');
+        const music = document.getElementById('bgMusic');
+        
+        document.querySelectorAll('.flower').forEach(flower => {
+            flower.addEventListener('click', (e) => {
+                e.preventDefault();
+                const emoji = flower.dataset.emoji;
+                const message = flower.dataset.message;
+                
+                modalEmoji.textContent = emoji;
+                modalText.textContent = message;
+                modal.style.display = 'flex';
+                typeMessage(message, modalText);
+
+            });
+        });
+
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+        };
+
+        window.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        function typeMessage(text, target) {
+            let i = 0;
+            target.textContent = "";
+            const interval = setInterval(() => {
+                if (i < text.length) {
+                    target.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 50); // typing speed
+        }
+
+
+
+    </script>
+
+</body>
+</html>
